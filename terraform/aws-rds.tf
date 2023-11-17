@@ -25,7 +25,7 @@ ingress_with_source_security_group_id = [
 
 module "db" {
   source = "terraform-aws-modules/rds/aws"
-
+  version = "5.9.0"
   identifier = "${var.environment}-${var.owner}-db"
 
   # All available versions: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts
