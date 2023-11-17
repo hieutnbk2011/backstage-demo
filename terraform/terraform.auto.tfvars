@@ -1,4 +1,4 @@
-owner="backstage"
+owner="hieutnbk2011"
 region="ap-southeast-2"
 env = "dev"
 team = "devops"
