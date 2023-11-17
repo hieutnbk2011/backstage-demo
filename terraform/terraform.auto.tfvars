@@ -1,6 +1,7 @@
 owner="hieutnbk2011"
 region="ap-southeast-2"
-env = "dev"
+env = "demo"
+
 team = "devops"
 createdBy = "terraform"
 short_region="apse2"

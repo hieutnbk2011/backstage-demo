@@ -2,9 +2,9 @@ module "db_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "5.1.0"
 
-  name        = "${var.environment}-${var.owner}-database"
+  name        = "${var.env}-${var.owner}-database"
   description = "Complete PostgreSQL security group"
-  vpc_id      = var.vpc_id
+  vpc_id      = module.vpc.vpc_id
 
 ingress_with_source_security_group_id = [
 #    {
@@ -26,7 +26,7 @@ ingress_with_source_security_group_id = [
 module "db" {
   source = "terraform-aws-modules/rds/aws"
   version = "5.9.0"
-  identifier = "${var.environment}-${var.owner}-db"
+  identifier = "${var.env}-${var.owner}-db"
 
   # All available versions: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts
   engine               = "postgres"
@@ -38,14 +38,17 @@ module "db" {
   allocated_storage     = 20
   max_allocated_storage = 100
   create_random_password = false
-  db_name  = "production"
-  username = "production"
-  password = "production"
+  db_name  = "demo"
+  username = "demo"
+  password = "demo"
   port     = 5432
 
-  multi_az               = true
-  db_subnet_group_name   = var.database_subnet_group
-  vpc_security_group_ids = [modu]
+  multi_az               = false
+
+  # DB subnet group
+  create_db_subnet_group = true
+  subnet_ids             = module.vpc.private_subnets
+  vpc_security_group_ids = [module.db_security_group.security_group_id]
 
   maintenance_window              = "Mon:00:00-Mon:03:00"
   backup_window                   = "03:00-06:00"
@@ -60,7 +63,7 @@ module "db" {
   performance_insights_retention_period = 7
   create_monitoring_role                = true
   monitoring_interval                   = 60
-  monitoring_role_name                  = "${var.owner}-monitoring"
+  monitoring_role_name                  = "${var.env}-${var.owner}-db-monitoring"
   monitoring_role_description           = "Description for monitoring role"
     tags = {
     Owner       = var.owner
