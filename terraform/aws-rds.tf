@@ -1,6 +1,6 @@
 module "db_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 4.0"
+  version = "5.1.0"
 
   name        = "${var.environment}-${var.owner}-database"
   description = "Complete PostgreSQL security group"
