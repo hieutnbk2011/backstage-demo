@@ -40,7 +40,7 @@ module "db" {
   create_random_password = false
   db_name  = "demo"
   username = "demo"
-  password = "demo"
+  password = "demodemo"
   port     = 5432
 
   multi_az               = false
