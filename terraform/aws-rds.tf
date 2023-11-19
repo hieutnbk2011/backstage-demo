@@ -37,10 +37,9 @@ module "db" {
 
   allocated_storage     = 20
   max_allocated_storage = 100
-  create_random_password = false
+  create_random_password = true
   db_name  = "demo"
   username = "demo"
-  password = "demodemo"
   port     = 5432
 
   multi_az               = false
