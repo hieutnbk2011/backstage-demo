@@ -15,14 +15,14 @@ data "aws_iam_policy_document" "assume_role_policy" {
 }
 
 module "ecr" {
-  source = "cloudposse/ecr/aws"
-  version = "0.34.0"
-  namespace    = var.short_region
-  stage        = var.env
-  name         = "backstage"
-  image_tag_mutability = "MUTABLE"
-  use_fullname = false
-  image_names  = ["backstage"]
+  source                 = "cloudposse/ecr/aws"
+  version                = "0.34.0"
+  namespace              = var.short_region
+  stage                  = var.env
+  name                   = "backstage"
+  image_tag_mutability   = "MUTABLE"
+  use_fullname           = false
+  image_names            = ["backstage"]
   principals_full_access = [aws_iam_role.ecs_task_execution.arn]
 
   tags = {

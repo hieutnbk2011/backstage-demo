@@ -34,6 +34,18 @@ variable "short_region" {
   description = ""
 }
 
+variable "region" {
+  description = ""
+}
+
 variable "team" {
   description = ""
+}
+
+variable "host_url" {
+
+}
+
+variable "github_token" {
+
 }

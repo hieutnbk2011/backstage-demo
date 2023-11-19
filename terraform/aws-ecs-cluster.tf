@@ -1,8 +1,8 @@
 ####### ECS cluster ########
 module "ecs_cluster" {
-  source = "terraform-aws-modules/ecs/aws"
+  source  = "terraform-aws-modules/ecs/aws"
   version = "3.5.0"
-  name     = "${var.env}-${var.short_region}-ecs"
+  name    = "${var.env}-${var.short_region}-ecs"
 
   container_insights = true
 

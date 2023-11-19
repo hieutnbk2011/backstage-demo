@@ -6,17 +6,17 @@ module "db_security_group" {
   description = "Complete PostgreSQL security group"
   vpc_id      = module.vpc.vpc_id
 
-ingress_with_source_security_group_id = [
-#    {
-#      from_port   = 5432
-#      to_port     = 5432
-#      protocol    = "tcp"
-#      description = "PostgreSQL access from ecs"
-#      source_security_group_id= module.backstage_api_ecs_security_group.security_group_id
-#    }
+  ingress_with_source_security_group_id = [
+    #    {
+    #      from_port   = 5432
+    #      to_port     = 5432
+    #      protocol    = "tcp"
+    #      description = "PostgreSQL access from ecs"
+    #      source_security_group_id= module.backstage_api_ecs_security_group.security_group_id
+    #    }
   ]
-    egress_rules        = ["all-all"]
-    tags = {
+  egress_rules = ["all-all"]
+  tags = {
     Owner       = var.owner
     Environment = var.env
   }
@@ -24,8 +24,8 @@ ingress_with_source_security_group_id = [
 
 
 module "db" {
-  source = "terraform-aws-modules/rds/aws"
-  version = "5.9.0"
+  source     = "terraform-aws-modules/rds/aws"
+  version    = "5.9.0"
   identifier = "${var.env}-${var.owner}-db"
 
   # All available versions: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts
@@ -35,14 +35,14 @@ module "db" {
   major_engine_version = "15"         # DB option group
   instance_class       = "db.t3.micro"
 
-  allocated_storage     = 20
-  max_allocated_storage = 100
+  allocated_storage      = 20
+  max_allocated_storage  = 100
   create_random_password = true
-  db_name  = "demo"
-  username = "demo"
-  port     = 5432
+  db_name                = "demo"
+  username               = "demo"
+  port                   = 5432
 
-  multi_az               = false
+  multi_az = false
 
   # DB subnet group
   create_db_subnet_group = true
@@ -64,7 +64,7 @@ module "db" {
   monitoring_interval                   = 60
   monitoring_role_name                  = "${var.env}-${var.owner}-db-monitoring"
   monitoring_role_description           = "Description for monitoring role"
-    tags = {
+  tags = {
     Owner       = var.owner
     Environment = var.env
   }
