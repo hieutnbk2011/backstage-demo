@@ -38,13 +38,28 @@ module "alb" {
       }
     }
   ]
+
   http_tcp_listeners = [
     {
-      port               = 80
-      protocol           = "HTTP"
+      port        = 80
+      protocol    = "HTTP"
+        action_type = "redirect"
+      redirect = {
+        port        = "443"
+        protocol    = "HTTPS"
+        status_code = "HTTP_301"
+      }
+    }
+  ]
+  https_listeners = [
+    {
+      port               = 443
+      protocol           = "HTTPS"
+      certificate_arn    = aws_acm_certificate.cert.arn
       target_group_index = 0
     }
   ]
+
 
   lb_tags = {
     Owner       = var.owner
@@ -54,3 +69,28 @@ module "alb" {
   }
 }
 
+resource "tls_private_key" "cert" {
+  algorithm = "RSA"
+}
+
+resource "tls_self_signed_cert" "cert" {
+  private_key_pem = tls_private_key.cert.private_key_pem
+
+  subject {
+    common_name  = var.host_url
+    organization = "ACME Examples, Inc"
+  }
+
+  validity_period_hours = 12
+
+  allowed_uses = [
+    "key_encipherment",
+    "digital_signature",
+    "server_auth",
+  ]
+}
+
+resource "aws_acm_certificate" "cert" {
+  private_key      = tls_private_key.cert.private_key_pem
+  certificate_body = tls_self_signed_cert.cert.cert_pem
+}
