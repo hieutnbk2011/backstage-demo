@@ -41,6 +41,6 @@ At the end of process, you will see this text, please use the link to build and 
 
 Outputs:
 
-ecr_link = "204173949765.dkr.ecr.ap-southeast-2.amazonaws.com/backstage"
+ecr_link = "xxxxxxxx.dkr.ecr.ap-southeast-2.amazonaws.com/backstage"
 
 ```
