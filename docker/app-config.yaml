@@ -1,9 +1,9 @@
 app:
   title: Demo Backstage App
-  baseUrl: ${HOST_URL}
+  baseUrl: http://localhost:3000
 
 organization:
-  name: Hieu's Demo
+  name: Demo
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
@@ -34,8 +34,21 @@ backend:
       port: ${POSTGRES_PORT}
       user: ${POSTGRES_USER}
       password: ${POSTGRES_PASSWORD}
+      ssl:
+        require: true
+        rejectUnauthorized: false 
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
-
+    knexConfig:
+      pool:
+        min: 15
+        max: 30
+        acquireTimeoutMillis: 60000
+        createTimeoutMillis: 30000
+        destroyTimeoutMillis: 5000
+        idleTimeoutMillis: 60000
+        reapIntervalMillis: 1000
+        createRetryIntervalMillis: 200
+        propagateCreateError: false
 integrations:
   github:
     - host: github.com
@@ -78,7 +91,7 @@ catalog:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
   rules:
-    - allow: [Component, System, API, Resource, Location]
+    - allow: [Component, System, API, Resource, Location, Template]
   locations:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
     - type: file
