@@ -4,7 +4,7 @@ metadata:
   name: ${{values.component_id | dump}}
   description: ${{values.description | dump}}
   annotations:
-    github.com/project-slug: ${{values.owner + "/" + values.destination}}
+    github.com/project-slug: ${{values.slug | dump}}
     backstage.io/techdocs-ref: dir:.
 spec:
   type: website

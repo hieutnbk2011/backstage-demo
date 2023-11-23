@@ -57,10 +57,11 @@ spec:
         copyWithoutRender:
           - .github/workflows/*
         values:
-          component_id: '${{ parameters.component_id }}'
-          description: '${{ parameters.description }}'
-          destination: '${{ parseRepoUrl parameters.repoUrl }}'
-          owner: '${{ parameters.owner }}'
+          component_id: ${{ parameters.component_id }}
+          description: ${{ parameters.description }}
+          destination: ${{ parameters.repoUrl | parseRepoUrl }}
+          owner: ${{ parameters.owner }}
+          slug: "${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}"
 
     - id: publish
       name: Publish
@@ -68,7 +69,7 @@ spec:
       input:
         allowedHosts: ['github.com']
         description: 'This is ${{ parameters.component_id }}'
-        repoUrl: '${{ parameters.repoUrl }}'
+        repoUrl: ${{ parameters.repoUrl }}
         defaultBranch: main
 
 
