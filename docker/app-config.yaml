@@ -1,6 +1,6 @@
 app:
   title: Demo Backstage App
-  baseUrl: http://localhost:3000
+  baseUrl: ${HOST_URL}
 
 organization:
   name: Demo
@@ -82,7 +82,12 @@ techdocs:
 
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
-  providers: {}
+  environment: development
+  providers:
+    github:
+      development:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
