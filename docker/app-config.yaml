@@ -1,6 +1,6 @@
 app:
   title: Demo Backstage App
-  baseUrl: ${HOST_URL}
+  baseUrl: http://backstage-hieu.io
 
 organization:
   name: Demo
