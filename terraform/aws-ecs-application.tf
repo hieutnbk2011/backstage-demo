@@ -78,6 +78,8 @@ module "container_definition" {
     "POSTGRES_PASSWORD" = module.db.db_instance_password
     "POSTGRES_PORT"     = "5432"
     "GITHUB_TOKEN"      = var.github_token
+    "AUTH_GITHUB_CLIENT_ID" = var.oauth_client_id
+    "AUTH_GITHUB_CLIENT_SECRET" = var.oauth_client_secret
   }
   port_mappings = [
     {

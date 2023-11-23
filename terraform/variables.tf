@@ -49,3 +49,12 @@ variable "host_url" {
 variable "github_token" {
 
 }
+
+variable "oauth_client_id" {
+
+}
+
+variable "oauth_client_secret" {
+
+}
+
