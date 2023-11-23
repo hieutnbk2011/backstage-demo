@@ -57,19 +57,19 @@ spec:
         copyWithoutRender:
           - .github/workflows/*
         values:
-          component_id: '{{ parameters.component_id }}'
-          description: '{{ parameters.description }}'
-          destination: '{{ parseRepoUrl parameters.repoUrl }}'
-          owner: '{{ parameters.owner }}'
+          component_id: '${{ parameters.component_id }}'
+          description: '${{ parameters.description }}'
+          destination: '${{ parseRepoUrl parameters.repoUrl }}'
+          owner: '${{ parameters.owner }}'
 
     - id: publish
       name: Publish
       action: publish:github
       input:
         allowedHosts: ['github.com']
-        description: 'This is {{ parameters.component_id }}'
-        repoUrl: '{{ parameters.repoUrl }}'
+        description: 'This is ${{ parameters.component_id }}'
+        repoUrl: '${{ parameters.repoUrl }}'
         defaultBranch: main
 
   output:
-    remoteUrl: '{{ steps.publish.output.remoteUrl }}'
+    remoteUrl: '${{ steps.publish.output.remoteUrl }}'
