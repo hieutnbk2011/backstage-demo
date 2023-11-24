@@ -32,4 +32,4 @@ jobs:
         with:
           node-version: 20.x
       - run: npm install
-      - run: sst deploy --stage prod
+      - run: npx sst deploy --stage prod
